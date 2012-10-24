@@ -3,7 +3,7 @@
             [clojure.browser.repl :as repl]
             [crate.core :as crate]
             [clojure.string :as string])
-  (:use [jayq.core :only [$ append bind]])
+  (:use [jayq.core :only [$ text bind]])
   (:use-macros [crate.macros :only [defpartial]]))
 
 ;;************************************************
@@ -19,7 +19,7 @@
 
 (def $content ($ :#content))
 
-(def key-map {40 "↓" 37 "←" 38 "↑" 39 "→" 32 "—"})
+(def key-symbols {40 "↓" 37 "←" 38 "↑" 39 "→" 32 "—"})
 
 (def $body ($ :body))
 
@@ -27,10 +27,15 @@
 
 (bind $body :keydown
   (fn [event]
-  (swap! key-presses conj (. event -which))
-  (append $content (print-keys @key-presses))))
+    (swap! key-presses conj (. event -which))
+    (text $content (print-keys @key-presses))))
+
+(bind $body :keyup
+  (fn [event]
+    (swap! key-presses disj (. event -which))
+    (text $content (print-keys @key-presses))))
 
 (defn print-keys [keys-pressed]
-  (str "Du har trykket: " (string/join " " keys-pressed)))
+  (str "Du har trykket: " (string/join " " (map #(key-symbols %) keys-pressed ))))
 
 
