@@ -1,7 +1,8 @@
 (ns alpha-card.client.main
   (:require [noir.cljs.client.watcher :as watcher]
             [clojure.browser.repl :as repl]
-            [crate.core :as crate])
+            [crate.core :as crate]
+            [clojure.string :as string])
   (:use [jayq.core :only [$ append bind]])
   (:use-macros [crate.macros :only [defpartial]]))
 
@@ -18,12 +19,18 @@
 
 (def $content ($ :#content))
 
-(defpartial key-down [key_code]
-  [:p.alert (str "Du har trykket:" (. key_code -which))])
+(def key-map {40 "↓" 37 "←" 38 "↑" 39 "→" 32 "—"})
 
 (def $body ($ :body))
 
+(def key-presses (atom #{}))
+
 (bind $body :keydown
-      (fn [event]
-        (append $content (key-down event))))
+  (fn [event]
+  (swap! key-presses conj (. event -which))
+  (append $content (print-keys @key-presses))))
+
+(defn print-keys [keys-pressed]
+  (str "Du har trykket: " (string/join " " keys-pressed)))
+
 
