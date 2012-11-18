@@ -5,4 +5,10 @@
 
 (defpage "/" []
          (common/layout
-           [:div#content]))
+           [:div.hero-unit
+            [:h1 "Bokstavkort"]]
+           [:div
+            [:h3 "Du har trykket: "]]
+            [:div#bokstav]
+            [:div#bilde]))
+

@@ -1,0 +1,10 @@
+body {
+  padding: 50px;
+}
+
+#bokstav {
+  width: 100%;
+  margin-top: 60px;
+  font-size: 300px;
+  text-align: center;
+}
