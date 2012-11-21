@@ -1,18 +1,10 @@
 (ns alpha_card.client.main
-  (:require [noir.cljs.client.watcher :as watcher]
-            [clojure.browser.repl :as repl]
+  (:require [clojure.browser.repl :as repl]
             [crate.core :as crate]
             [crate.element :as element]
             [clojure.string :as string])
   (:use [jayq.core :only [$ append inner text bind children val]])
   (:use-macros [crate.def-macros :only [defpartial]]))
-
-;;************************************************
-;; Dev stuff
-;;************************************************
-
-(watcher/init)
-;;(repl/connect "http://localhost:9000/repl")
 
 ;;************************************************
 ;; Code
@@ -38,6 +30,18 @@
 
 (def key-presses (atom #{}))
 
+(defn find-letter [keys-pressed]
+  (if (seq (filter #(key-exp %) keys-pressed))
+    (letter-for-key-combo keys-pressed)
+    ""))
+
+(defn hepp [](children $bilde))
+
+(defn print-image [letter]
+  (let [$children (children ($ :#bilde))]
+    (if (= (.size $children) 0)
+      (append $bilde (crate/html (element/image "/img/a.jpg" "Noir"))))))
+
 (bind $body :keydown
   (fn [event]
     (swap! key-presses conj (. event -which))
@@ -50,19 +54,4 @@
     (swap! key-presses disj (. event -which))
     (text $bokstav (find-letter @key-presses))
     (jayq.core/empty $bilde)))
-
-(defn find-letter [keys-pressed]
-  (if (seq (filter #(key-exp %) keys-pressed))
-    (letter-for-key-combo keys-pressed)
-    ""))
-
-(defn hepp [](children $bilde))
-
-(defn print-image [letter]
-  (let [$children (children ($ :#bilde))]
-    (.log js/console (count (jayq.core/children ($ "#wrapper"))))
-    (if (= (.size $children) 0)
-      (append $bilde (crate/html (element/image "/img/a.jpg" "Noir"))))))
-
-
 

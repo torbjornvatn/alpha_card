@@ -1,5 +1,4 @@
 (ns alpha-card.views.common
-  (:require [noir.cljs.core :as cljs])
   (:use [noir.core :only [defpartial]]
         [hiccup.page :only [include-css include-js html5]]))
 
@@ -13,6 +12,6 @@
               [:body
                [:div#wrapper
                 content]
-               (cljs/include-scripts :with-jquery)
                (include-js "http://code.jquery.com/jquery-latest.js")
+               (include-js "js/main.js")
                (include-js "js/bootstrap.min.js")]))
