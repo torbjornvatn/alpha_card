@@ -2,14 +2,15 @@
   (:require [clojure.browser.repl :as repl]
             [crate.core :as crate]
             [crate.element :as element]
+            [jayq.core :as jq]
             [clojure.string :as string])
-  (:use [jayq.core :only [$ append inner text bind children val]])
   (:use-macros [crate.def-macros :only [defpartial]]))
 
 ;;************************************************
 ;; Code
 ;;************************************************
 
+(def $ jq/$)
 (def $bokstav ($ :#bokstav))
 (def $bilde ($ :#bilde))
 (def $body ($ :body))
@@ -35,23 +36,21 @@
     (letter-for-key-combo keys-pressed)
     ""))
 
-(defn hepp [](children $bilde))
-
 (defn print-image [letter]
-  (let [$children (children ($ :#bilde))]
+  (let [$children (jq/children ($ :#bilde))]
     (if (= (.size $children) 0)
-      (append $bilde (crate/html (element/image "/img/a.jpg" "Noir"))))))
+      (jq/append $bilde (crate/html (element/image "/img/a.jpg" "Noir"))))))
 
-(bind $body :keydown
+(jq/bind $body :keydown
   (fn [event]
     (swap! key-presses conj (. event -which))
     (let [letter (find-letter @key-presses)]
-      (text $bokstav letter)
+      (jq/text $bokstav letter)
       (print-image letter))))
 
-(bind $body :keyup
+(jq/bind $body :keyup
   (fn [event]
     (swap! key-presses disj (. event -which))
-    (text $bokstav (find-letter @key-presses))
-    (jayq.core/empty $bilde)))
+    (jq/text $bokstav (find-letter @key-presses))
+    (jq/empty $bilde)))
 

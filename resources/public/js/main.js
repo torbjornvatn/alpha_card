@@ -32719,16 +32719,16 @@ jayq.core.prevent = function prevent(e) {
 };
 goog.provide("alpha_card.client.main");
 goog.require("cljs.core");
-goog.require("jayq.core");
-goog.require("jayq.core");
 goog.require("clojure.string");
+goog.require("jayq.core");
 goog.require("crate.element");
 goog.require("crate.core");
 goog.require("clojure.browser.repl");
-alpha_card.client.main.$bokstav = jayq.core.$.call(null, "\ufdd0'#bokstav");
-alpha_card.client.main.$bilde = jayq.core.$.call(null, "\ufdd0'#bilde");
-alpha_card.client.main.$body = jayq.core.$.call(null, "\ufdd0'body");
-alpha_card.client.main.letters = cljs.core.with_meta(cljs.core.list("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "\u00e6", "\u00f8", "\u00e5"), cljs.core.hash_map("\ufdd0'line", 17));
+alpha_card.client.main.$ = jayq.core.$;
+alpha_card.client.main.$bokstav = alpha_card.client.main.$.call(null, "\ufdd0'#bokstav");
+alpha_card.client.main.$bilde = alpha_card.client.main.$.call(null, "\ufdd0'#bilde");
+alpha_card.client.main.$body = alpha_card.client.main.$.call(null, "\ufdd0'body");
+alpha_card.client.main.letters = cljs.core.with_meta(cljs.core.list("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "\u00e6", "\u00f8", "\u00e5"), cljs.core.hash_map("\ufdd0'line", 18));
 alpha_card.client.main.letter_at = function letter_at(index) {
   return cljs.core.nth.call(null, alpha_card.client.main.letters, index - 1)
 };
@@ -32737,26 +32737,23 @@ alpha_card.client.main.binary = function binary(x) {
   return cljs.core.reduce.call(null, cljs.core._STAR_, cljs.core.repeat.call(null, x, 2))
 };
 alpha_card.client.main.letter_for_key_combo = function letter_for_key_combo(key_combo) {
-  var index = cljs.core.reduce.call(null, cljs.core._PLUS_, cljs.core.map.call(null, function(p1__3916_SHARP_) {
-    return alpha_card.client.main.binary.call(null, alpha_card.client.main.key_exp.call(null, p1__3916_SHARP_))
+  var index = cljs.core.reduce.call(null, cljs.core._PLUS_, cljs.core.map.call(null, function(p1__3480_SHARP_) {
+    return alpha_card.client.main.binary.call(null, alpha_card.client.main.key_exp.call(null, p1__3480_SHARP_))
   }, key_combo));
   return alpha_card.client.main.letter_at.call(null, index)
 };
 alpha_card.client.main.key_presses = cljs.core.atom.call(null, cljs.core.PersistentHashSet.EMPTY);
 alpha_card.client.main.find_letter = function find_letter(keys_pressed) {
-  if(cljs.core.seq.call(null, cljs.core.filter.call(null, function(p1__3917_SHARP_) {
-    return alpha_card.client.main.key_exp.call(null, p1__3917_SHARP_)
+  if(cljs.core.seq.call(null, cljs.core.filter.call(null, function(p1__3481_SHARP_) {
+    return alpha_card.client.main.key_exp.call(null, p1__3481_SHARP_)
   }, keys_pressed))) {
     return alpha_card.client.main.letter_for_key_combo.call(null, keys_pressed)
   }else {
     return""
   }
 };
-alpha_card.client.main.hepp = function hepp() {
-  return jayq.core.children.call(null, alpha_card.client.main.$bilde)
-};
 alpha_card.client.main.print_image = function print_image(letter) {
-  var $children = jayq.core.children.call(null, jayq.core.$.call(null, "\ufdd0'#bilde"));
+  var $children = jayq.core.children.call(null, alpha_card.client.main.$.call(null, "\ufdd0'#bilde"));
   if(cljs.core._EQ_.call(null, $children.size(), 0)) {
     return jayq.core.append.call(null, alpha_card.client.main.$bilde, crate.core.html.call(null, crate.element.image.call(null, "/img/a.jpg", "Noir")))
   }else {
