@@ -4,7 +4,7 @@
             [crate.core :as crate]
             [crate.element :as element]
             [clojure.string :as string])
-  (:use [jayq.core :only [$ append inner text bind empty]])
+  (:use [jayq.core :only [$ append inner text bind children val]])
   (:use-macros [crate.def-macros :only [defpartial]]))
 
 ;;************************************************
@@ -40,20 +40,29 @@
 
 (bind $body :keydown
   (fn [event]
-    (let [new-key-press (. event -which)]
-        (swap! key-presses conj new-key-press)
-        (append $bilde (crate/html (element/image "/img/a.jpg" "Noir")))
-        (text $bokstav (print-keys @key-presses)))))
+    (swap! key-presses conj (. event -which))
+    (let [letter (find-letter @key-presses)]
+      (text $bokstav letter)
+      (print-image letter))))
 
 (bind $body :keyup
   (fn [event]
     (swap! key-presses disj (. event -which))
-    (empty $bilde)
-    (text $bokstav (print-keys @key-presses))))
+    (text $bokstav (find-letter @key-presses))
+    (jayq.core/empty $bilde)))
 
-(defn print-keys [keys-pressed]
+(defn find-letter [keys-pressed]
   (if (seq (filter #(key-exp %) keys-pressed))
     (letter-for-key-combo keys-pressed)
     ""))
+
+(defn hepp [](children $bilde))
+
+(defn print-image [letter]
+  (let [$children (children ($ :#bilde))]
+    (.log js/console (count (jayq.core/children ($ "#wrapper"))))
+    (if (= (.size $children) 0)
+      (append $bilde (crate/html (element/image "/img/a.jpg" "Noir"))))))
+
 
 
