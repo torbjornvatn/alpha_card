@@ -28230,6 +28230,88 @@ clojure.browser.repl.connect = function connect(repl_server_url) {
     return iframe.style.display = "none"
   })
 };
+goog.provide("jayq.util");
+goog.require("cljs.core");
+jayq.util.map__GT_js = function map__GT_js(m) {
+  var out = {};
+  var G__3928 = cljs.core.seq.call(null, m);
+  while(true) {
+    if(G__3928) {
+      var vec__3929 = cljs.core.first.call(null, G__3928);
+      var k = cljs.core.nth.call(null, vec__3929, 0, null);
+      var v = cljs.core.nth.call(null, vec__3929, 1, null);
+      out[cljs.core.name.call(null, k)] = v;
+      var G__3930 = cljs.core.next.call(null, G__3928);
+      G__3928 = G__3930;
+      continue
+    }else {
+    }
+    break
+  }
+  return out
+};
+jayq.util.wait = function wait(ms, func) {
+  return setTimeout(func, ms)
+};
+jayq.util.log = function() {
+  var log__delegate = function(v, text) {
+    var vs = cljs.core.string_QMARK_.call(null, v) ? cljs.core.apply.call(null, cljs.core.str, v, text) : v;
+    return console.log(vs)
+  };
+  var log = function(v, var_args) {
+    var text = null;
+    if(goog.isDef(var_args)) {
+      text = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
+    }
+    return log__delegate.call(this, v, text)
+  };
+  log.cljs$lang$maxFixedArity = 1;
+  log.cljs$lang$applyTo = function(arglist__3931) {
+    var v = cljs.core.first(arglist__3931);
+    var text = cljs.core.rest(arglist__3931);
+    return log__delegate(v, text)
+  };
+  log.cljs$lang$arity$variadic = log__delegate;
+  return log
+}();
+jayq.util.clj__GT_js = function clj__GT_js(x) {
+  if(cljs.core.string_QMARK_.call(null, x)) {
+    return x
+  }else {
+    if(cljs.core.keyword_QMARK_.call(null, x)) {
+      return cljs.core.name.call(null, x)
+    }else {
+      if(cljs.core.map_QMARK_.call(null, x)) {
+        var obj = {};
+        var G__3934 = cljs.core.seq.call(null, x);
+        while(true) {
+          if(G__3934) {
+            var vec__3935 = cljs.core.first.call(null, G__3934);
+            var k = cljs.core.nth.call(null, vec__3935, 0, null);
+            var v = cljs.core.nth.call(null, vec__3935, 1, null);
+            obj[clj__GT_js.call(null, k)] = clj__GT_js.call(null, v);
+            var G__3936 = cljs.core.next.call(null, G__3934);
+            G__3934 = G__3936;
+            continue
+          }else {
+          }
+          break
+        }
+        return obj
+      }else {
+        if(cljs.core.coll_QMARK_.call(null, x)) {
+          return cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, clj__GT_js, x))
+        }else {
+          if("\ufdd0'else") {
+            return x
+          }else {
+            return null
+          }
+        }
+      }
+    }
+  }
+};
 goog.provide("crate.util");
 goog.require("cljs.core");
 goog.require("clojure.string");
@@ -30702,88 +30784,6 @@ var func__2958__auto__ = function() {
   return G__3857
 }();
 crate.element.image = crate.compiler.add_optional_attrs.call(null, func__2958__auto__);
-goog.provide("jayq.util");
-goog.require("cljs.core");
-jayq.util.map__GT_js = function map__GT_js(m) {
-  var out = {};
-  var G__3928 = cljs.core.seq.call(null, m);
-  while(true) {
-    if(G__3928) {
-      var vec__3929 = cljs.core.first.call(null, G__3928);
-      var k = cljs.core.nth.call(null, vec__3929, 0, null);
-      var v = cljs.core.nth.call(null, vec__3929, 1, null);
-      out[cljs.core.name.call(null, k)] = v;
-      var G__3930 = cljs.core.next.call(null, G__3928);
-      G__3928 = G__3930;
-      continue
-    }else {
-    }
-    break
-  }
-  return out
-};
-jayq.util.wait = function wait(ms, func) {
-  return setTimeout(func, ms)
-};
-jayq.util.log = function() {
-  var log__delegate = function(v, text) {
-    var vs = cljs.core.string_QMARK_.call(null, v) ? cljs.core.apply.call(null, cljs.core.str, v, text) : v;
-    return console.log(vs)
-  };
-  var log = function(v, var_args) {
-    var text = null;
-    if(goog.isDef(var_args)) {
-      text = cljs.core.array_seq(Array.prototype.slice.call(arguments, 1), 0)
-    }
-    return log__delegate.call(this, v, text)
-  };
-  log.cljs$lang$maxFixedArity = 1;
-  log.cljs$lang$applyTo = function(arglist__3931) {
-    var v = cljs.core.first(arglist__3931);
-    var text = cljs.core.rest(arglist__3931);
-    return log__delegate(v, text)
-  };
-  log.cljs$lang$arity$variadic = log__delegate;
-  return log
-}();
-jayq.util.clj__GT_js = function clj__GT_js(x) {
-  if(cljs.core.string_QMARK_.call(null, x)) {
-    return x
-  }else {
-    if(cljs.core.keyword_QMARK_.call(null, x)) {
-      return cljs.core.name.call(null, x)
-    }else {
-      if(cljs.core.map_QMARK_.call(null, x)) {
-        var obj = {};
-        var G__3934 = cljs.core.seq.call(null, x);
-        while(true) {
-          if(G__3934) {
-            var vec__3935 = cljs.core.first.call(null, G__3934);
-            var k = cljs.core.nth.call(null, vec__3935, 0, null);
-            var v = cljs.core.nth.call(null, vec__3935, 1, null);
-            obj[clj__GT_js.call(null, k)] = clj__GT_js.call(null, v);
-            var G__3936 = cljs.core.next.call(null, G__3934);
-            G__3934 = G__3936;
-            continue
-          }else {
-          }
-          break
-        }
-        return obj
-      }else {
-        if(cljs.core.coll_QMARK_.call(null, x)) {
-          return cljs.core.apply.call(null, cljs.core.array, cljs.core.map.call(null, clj__GT_js, x))
-        }else {
-          if("\ufdd0'else") {
-            return x
-          }else {
-            return null
-          }
-        }
-      }
-    }
-  }
-};
 goog.provide("cljs.reader");
 goog.require("cljs.core");
 goog.require("goog.string");
@@ -32719,7 +32719,10 @@ jayq.core.prevent = function prevent(e) {
 };
 goog.provide("alpha_card.client.main");
 goog.require("cljs.core");
+goog.require("crate.element");
+goog.require("crate.core");
 goog.require("clojure.string");
+goog.require("jayq.util");
 goog.require("jayq.core");
 goog.require("crate.element");
 goog.require("crate.core");
@@ -32728,7 +32731,7 @@ alpha_card.client.main.$ = jayq.core.$;
 alpha_card.client.main.$bokstav = alpha_card.client.main.$.call(null, "\ufdd0'#bokstav");
 alpha_card.client.main.$bilde = alpha_card.client.main.$.call(null, "\ufdd0'#bilde");
 alpha_card.client.main.$body = alpha_card.client.main.$.call(null, "\ufdd0'body");
-alpha_card.client.main.letters = cljs.core.with_meta(cljs.core.list("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "\u00e6", "\u00f8", "\u00e5"), cljs.core.hash_map("\ufdd0'line", 18));
+alpha_card.client.main.letters = cljs.core.with_meta(cljs.core.list("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "\u00c6", "\u00d8", "\u00c5"), cljs.core.hash_map("\ufdd0'line", 19));
 alpha_card.client.main.letter_at = function letter_at(index) {
   return cljs.core.nth.call(null, alpha_card.client.main.letters, index - 1)
 };
@@ -32737,15 +32740,15 @@ alpha_card.client.main.binary = function binary(x) {
   return cljs.core.reduce.call(null, cljs.core._STAR_, cljs.core.repeat.call(null, x, 2))
 };
 alpha_card.client.main.letter_for_key_combo = function letter_for_key_combo(key_combo) {
-  var index = cljs.core.reduce.call(null, cljs.core._PLUS_, cljs.core.map.call(null, function(p1__3480_SHARP_) {
-    return alpha_card.client.main.binary.call(null, alpha_card.client.main.key_exp.call(null, p1__3480_SHARP_))
+  var index = cljs.core.reduce.call(null, cljs.core._PLUS_, cljs.core.map.call(null, function(p1__17468_SHARP_) {
+    return alpha_card.client.main.binary.call(null, alpha_card.client.main.key_exp.call(null, p1__17468_SHARP_))
   }, key_combo));
   return alpha_card.client.main.letter_at.call(null, index)
 };
 alpha_card.client.main.key_presses = cljs.core.atom.call(null, cljs.core.PersistentHashSet.EMPTY);
 alpha_card.client.main.find_letter = function find_letter(keys_pressed) {
-  if(cljs.core.seq.call(null, cljs.core.filter.call(null, function(p1__3481_SHARP_) {
-    return alpha_card.client.main.key_exp.call(null, p1__3481_SHARP_)
+  if(cljs.core.seq.call(null, cljs.core.filter.call(null, function(p1__17469_SHARP_) {
+    return alpha_card.client.main.key_exp.call(null, p1__17469_SHARP_)
   }, keys_pressed))) {
     return alpha_card.client.main.letter_for_key_combo.call(null, keys_pressed)
   }else {
@@ -32755,7 +32758,7 @@ alpha_card.client.main.find_letter = function find_letter(keys_pressed) {
 alpha_card.client.main.print_image = function print_image(letter) {
   var $children = jayq.core.children.call(null, alpha_card.client.main.$.call(null, "\ufdd0'#bilde"));
   if(cljs.core._EQ_.call(null, $children.size(), 0)) {
-    return jayq.core.append.call(null, alpha_card.client.main.$bilde, crate.core.html.call(null, crate.element.image.call(null, "/img/a.jpg", "Noir")))
+    return jayq.core.append.call(null, alpha_card.client.main.$bilde, crate.core.html.call(null, crate.element.image.call(null, [cljs.core.str("/img/"), cljs.core.str(letter), cljs.core.str(".jpg")].join(""))))
   }else {
     return null
   }
@@ -32763,8 +32766,11 @@ alpha_card.client.main.print_image = function print_image(letter) {
 jayq.core.bind.call(null, alpha_card.client.main.$body, "\ufdd0'keydown", function(event) {
   cljs.core.swap_BANG_.call(null, alpha_card.client.main.key_presses, cljs.core.conj, event.which);
   var letter = alpha_card.client.main.find_letter.call(null, cljs.core.deref.call(null, alpha_card.client.main.key_presses));
-  jayq.core.text.call(null, alpha_card.client.main.$bokstav, letter);
-  return alpha_card.client.main.print_image.call(null, letter)
+  if(cljs.core.truth_(cljs.core.not_empty.call(null, letter))) {
+    return jayq.core.inner.call(null, alpha_card.client.main.$bokstav, crate.core.html.call(null, cljs.core.PersistentVector.fromArray(["\ufdd0'p", [cljs.core.str(letter), cljs.core.str("\u261e")].join("")], true))).call(null, alpha_card.client.main.print_image.call(null, letter))
+  }else {
+    return null
+  }
 });
 jayq.core.bind.call(null, alpha_card.client.main.$body, "\ufdd0'keyup", function(event) {
   cljs.core.swap_BANG_.call(null, alpha_card.client.main.key_presses, cljs.core.disj, event.which);

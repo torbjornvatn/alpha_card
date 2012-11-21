@@ -1,8 +1,9 @@
 (ns alpha_card.client.main
   (:require [clojure.browser.repl :as repl]
-            [crate.core :as crate]
-            [crate.element :as element]
+            [crate.core :refer [html] :as c]
+            [crate.element :refer [image] :as ce]
             [jayq.core :as jq]
+            [jayq.util :as ju]
             [clojure.string :as string])
   (:use-macros [crate.def-macros :only [defpartial]]))
 
@@ -15,7 +16,7 @@
 (def $bilde ($ :#bilde))
 (def $body ($ :body))
 
-(def letters '("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z" "æ" "ø" "å"))
+(def letters '("A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z" "Æ" "Ø" "Å"))
 
 (defn letter-at [index]
   (nth letters (- index 1)))
@@ -38,15 +39,16 @@
 
 (defn print-image [letter]
   (let [$children (jq/children ($ :#bilde))]
-    (if (= (.size $children) 0)
-      (jq/append $bilde (crate/html (element/image "/img/a.jpg" "Noir"))))))
+    (if (= (.size $children) 0 )
+      (jq/append $bilde (c/html (ce/image (str "/img/" letter ".jpg")))))))
 
 (jq/bind $body :keydown
   (fn [event]
     (swap! key-presses conj (. event -which))
     (let [letter (find-letter @key-presses)]
-      (jq/text $bokstav letter)
-      (print-image letter))))
+      (if (not-empty letter)
+        ((jq/inner $bokstav (c/html [:p (str letter "☞")]))
+        (print-image letter))))))
 
 (jq/bind $body :keyup
   (fn [event]

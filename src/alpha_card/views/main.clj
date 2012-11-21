@@ -4,11 +4,12 @@
         [hiccup.core :only [html]]))
 
 (defpage "/" []
-         (common/layout
-           [:div.hero-unit
-            [:h1 "Bokstavkort"]]
-           [:div
-            [:h3 "Du har trykket: "]]
-            [:div#bokstav]
-            [:div#bilde]))
+  (common/layout
+    [:div.hero-unit
+      [:h1#tittel "Bokstavkort"]]
+    [:div.container-fluid
+      [:div.row-fluid
+        [:div#bokstav.span6]
+        [:div#bilde.span6]]]))
+
 

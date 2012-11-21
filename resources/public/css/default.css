@@ -2,9 +2,16 @@ body {
   padding: 50px;
 }
 
-#bokstav {
-  width: 100%;
-  margin-top: 60px;
-  font-size: 300px;
+#tittel {
   text-align: center;
+  font-size: 130px;
+}
+
+#bokstav > p {
+  margin-top: 130px;
+  font-size: 300px;
+}
+
+#bilde {
+  margin-top: 27px;
 }
